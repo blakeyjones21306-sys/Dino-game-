@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no"/>
-<title>DINO // LASER TRIP — BUILD 004</title>
+<title>DINO // LASER TRIP — BUILD 005</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 :root{--hot:#ff3c9e;--acid:#b6ff58;--cyan:#6df8ff;--white:#f6f2e7;--ink:#10141b}
@@ -25,7 +25,7 @@ body.trip #announcer{text-shadow:0 0 22px #fcf3}body.trip canvas{animation:reali
 <body>
 <canvas id="game" aria-label="Dino Laser Trip video game"></canvas><div id="grain"></div><div id="scanline"></div><div id="flash"></div>
 <div id="hud">
- <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>LASER TARGETING FIX · BUILD 004</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
+ <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>MOBILE GRAPHICS · BUILD 005</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
  <div id="announcer"></div><div class="trip-hud"><b>🍄 REALITY IS OPTIONAL // 3-LANE MODE</b><div class="timer"><span id="triptime">30.0</span><span style="font-size:12px;color:#adc2d2"> SEC</span></div><div class="meter"><div id="tripbar"></div></div></div>
  <div class="bottom"><div class="instructions" id="instructions"><b>SPACE/↑</b> JUMP &nbsp; <b>↓</b> DUCK &nbsp; <b>CLICK/F</b> FIRE &nbsp; <b>P</b> PAUSE &nbsp; <b>M</b> TEST MUSHROOM</div><div class="hudbuttons"><button class="mutebtn" id="pause" aria-label="Pause game">Ⅱ PAUSE</button><button class="mutebtn" id="mute">♪ SOUND ON</button></div></div>
 </div>
@@ -125,13 +125,14 @@ function update(dt){worldTime+=dt;scroll+=dt*(mode==='side'?GAME_CONFIG.baseSpee
  for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;p.vy-=dt*9;p.life-=dt}particles=particles.filter(p=>p.life>0);hud();
 }
 function drawDino(x,z,yaw=0){let h=dino.y,duck=dino.duck&&h<.1,scaleY=duck?.69:1, bob=h>0?0:Math.sin(dino.phase*2)*.045;let base=M.mul(M.trs(x,h+bob,z,1,scaleY,1,yaw),M.id());let step=Math.sin(dino.phase),step2=Math.sin(dino.phase+Math.PI);
- part('box',pal.darkDino,base,0,1.52,.1,.84,.88,1.28);part('box',pal.dino,base,0,1.7,.08,.79,.85,1.26);part('box',pal.belly,base,0,1.33,-.65,.61,.47,.36);
- part('box',pal.dino,base,0,2.45,-.86,.63,.78,.67);part('box',pal.dino,base,0,3.09,-1.15,.81,.66,.85);part('box',pal.belly,base,0,2.75,-1.59,.75,.22,.59);part('box',pal.dino,base,0,2.55,-1.36,.74,.15,.73);
+ part('sphere',pal.darkDino,base,0,1.52,.1,.84,.88,1.28);part('sphere',pal.dino,base,0,1.7,.08,.79,.85,1.26);part('sphere',pal.belly,base,0,1.33,-.65,.61,.47,.36);
+ part('sphere',pal.dino,base,0,2.45,-.86,.63,.78,.67);part('sphere',pal.dino,base,0,3.09,-1.15,.81,.66,.85);part('sphere',pal.belly,base,0,2.75,-1.59,.75,.22,.59);part('sphere',pal.dino,base,0,2.55,-1.36,.74,.15,.73);
  part('sphere',pal.white,base,-.57,3.23,-1.6,.145,.16,.14);part('sphere',pal.black,base,-.62,3.24,-1.72,.08,.09,.08);part('sphere',pal.white,base,.57,3.23,-1.6,.145,.16,.14);part('sphere',pal.black,base,.62,3.24,-1.72,.08,.09,.08);
  part('box',pal.dino,base,-.8,2.02,-.52,.27,.18,.44,0,0,Math.sin(dino.phase)*.12);part('box',pal.dino,base,.8,2.02,-.52,.27,.18,.44,0,0,-Math.sin(dino.phase)*.12);
  for(let i=0;i<4;i++)part('cone',pal.darkDino,base,0,2.3-i*.28,.4+i*.43,.25,.29,.29,0,-.48);
- for(let i=0;i<4;i++)part('box',i%2?pal.dino:pal.darkDino,base,0,1.72-i*.26,1.35+i*.41,.64-i*.12,.35-i*.045,.41,0,-.12+i*.13);
+ for(let i=0;i<7;i++)part('sphere',i%2?pal.dino:pal.darkDino,base,0,1.72-i*.17,1.35+i*.30,.64-i*.075,.35-i*.03,.41,0,-.12+i*.13);
  for(let [side,s] of [[-1,step],[1,step2]]){part('box',pal.darkDino,base,side*.52,.65+s*.17,.32, .3,.64,.43,0,s*.18);part('box',pal.dino,base,side*.56,.19+Math.max(0,s)*.23,-.12,.38,.18,.67,0,s*.23);for(let j=0;j<3;j++)part('box',pal.bone,base,side*.56+(j-1)*.17,.1+Math.max(0,s)*.23,-.55,.07,.08,.15)}
+ for(let j=0;j<25;j++){let a=j*2.39996;part('sphere',j%3?'#5caa53':'#356c45',base,Math.sin(a)*.72,1.1+(j%9)*.22,Math.cos(a)*.85,.075,.055,.09)}
  // Overbuilt mechanical laser turret welded to skull.
  part('cyl',pal.steel,base,0,3.73,-1.18,.42,.2,.42,0,0,0,.1,.6);part('box',pal.black,base,0,3.99,-1.20,.64,.35,.57,0,0,0,0,.6);part('box',pal.pink,base,0,4.14,-1.2,.55,.11,.42,0,0,0,.6);
  part('cyl',pal.steel,base,0,4.00,-1.98,.25,.80,.25,0,-Math.PI/2,0,.1,.7);part('cyl',pal.black,base,0,4.00,-2.69,.32,.22,.32,0,-Math.PI/2,0,.2,.5);part('cyl',pal.red,base,0,4,-2.9,.24,.09,.24,0,-Math.PI/2,0,1.8,.9);
@@ -158,12 +159,13 @@ function drawGroundSide(){gl.uniform3fv(U.fog,fogRGB);cube('#e5b99e',0,-1.7,0,14
  for(let i=-9;i<13;i++){let x=i*6-(scroll*.17%6);draw('cone','#bd89a6',M.trs(x,-1.2,-31,5,8+(i%3),4));draw('cone','#d79aaa',M.trs(x+3,-1.5,-23,3.8,5+((i*3)%4),3.6))}
  for(let i=-5;i<9;i++){let x=i*11-(scroll*.06%11);ball('#fff4dc',x,13+(i%3)*1.4,-49,2.8,.54,.6,.1)}
  ball('#ffe9ac',15,12,-38,3.8,3.8,1,.48);for(let i=-5;i<9;i++){let x=i*12-(scroll*.6%12),z= -7-(Math.abs(i*7)%12);drawCactus(x,z,.65+(i%3)*.21)}}
+function drawJungleTree(x,z,i){let h=4+(i%4)*1.05;cube('#554032',x,h*.42,z,.35,h*.45,.35);for(let j=0;j<6;j++){let a=j*2.4;ball(j%2?'#174d35':'#276e43',x+Math.cos(a)*1.1,h+Math.sin(a)*.6,z+Math.sin(a)*1.1,1.4,1.8,1.4)}ball('#3b9155',x,h+1.3,z,1.55,1.6,1.55)}
 function drawTripWorld(){// three-lane jungle freeway, wet-surface lines, foliage and luminous fog
- cube('#243d37',0,-2.9,-21,200,2.8,200);cube('#233b43',0,-.35,-20,12,.34,175,0,.5);cube('#5b767c',0,-.17,-20,11.6,.025,175,0,.5);for(let [i,x] of [[0,-5.9],[1,5.9]])cube(i?'#55eecc':'#f9c2f1',x,.04,-22,.10,.045,170,.5);
+ cube('#243d37',0,-2.9,-21,200,2.8,200);cube('#233b43',0,-.35,-20,12,.34,175,0,.5);cube('#465057',0,-.17,-20,11.6,.025,175,0,.5);for(let i=0;i<36;i++){let z=((i*4.3+scroll*1.5)%170)-143;cube(i%3?'#525c62':'#3e494d',(i%7-3)*1.55,-.139,z,.12,.004,.46)}for(let [i,x] of [[0,-5.9],[1,5.9]])cube(i?'#55eecc':'#f9c2f1',x,.04,-22,.10,.045,170,.5);
  for(let lane of [-1,1]){let x=lane*1.8;for(let n=0;n<23;n++){let z=((n*8+scroll*1.5)%152)-133;cube('#b5f4e6',x,-.1,z,.055,.04,2.35,.35)}}
  // Scenic trees from side of lane. Parallax strongly shows depth.
- for(let i=0;i<19;i++){let z=((i*10.5+scroll*.85)%190)-160;for(let side of [-1,1]){let x=side*(11.4+(i%3)*2.3);cube('#655e5a',x,2.4,z,.37,3,.35);for(let j=0;j<3;j++){let clr=['#1e9e81','#4bc08c','#2fbb9d'][((i+j)%3+3)%3];ball(clr,x+(j-1)*.9,5.3+(j%2)*1.2,z,.95+(j%2)*.35,2.0,1.14)}}}
- for(let i=0;i<15;i++){let z=((i*12+scroll*1.15)%180)-155;let a=worldTime*2.7+i*1.3;for(let s of [-1,1]){let x=s*(7.7+(i%3)*1.7);ball(i%2?pal.pink:pal.acid,x,1.5+Math.sin(a)*.6,z,.32,1.1,.32,.9);ball(pal.cyan,x,3.1+Math.sin(a+1)*.35,z,.16,.26,.16,.8)}}
+ for(let i=0;i<19;i++){let z=((i*10.5+scroll*.85)%190)-160;for(let side of [-1,1]){let x=side*(11.4+(i%3)*2.3);drawJungleTree(x,z,i)}}
+ for(let i=0;i<13;i++){let z=((i*13+scroll*1.15)%180)-155;for(let side of [-1,1]){let x=side*(8.3+i%3);for(let j=0;j<4;j++){let a=j*2.4;ball(j%2?'#416c38':'#668c42',x+Math.cos(a)*.9,.65+Math.sin(a)*.3,z+Math.sin(a)*.8,.65,.85,.7)}}}
  for(let i=0;i<17;i++){let z=((i*13+scroll*.23)%210)-180;draw('cone',i%2?'#5a8090':'#54707d',M.trs((i%2?1:-1)*(25+i%3*9),-2.6,z,11,23+(i%3)*4,12))}
  ball('#f8dbae',-25,24,-105,9,9,2,.45);for(let i=0;i<5;i++){ball('#d8eee9',-19+i*13,17+(i%3)*1.4,-105,8,1.5,3,.08)}
 }
@@ -187,7 +189,7 @@ for(let b of document.querySelectorAll('.ctrl')){let act=b.dataset.act;b.addEven
 window.addEventListener('contextmenu',e=>e.preventDefault());
 // Diagnostics for automated browser smoke tests and future build scripts.
 window.DinoLaserDev={getState:()=>({state,mode,score,health,tripRemaining,obstacles:hazards.length+flyers.length+tripObstacles.length,mushrooms:pickups.length}),start:reset,trip:enterTrip,jump,fire,render};
-window.__GAME_BUILD__='004';window.__GAME_READY__=true;
+window.__GAME_BUILD__='005';window.__GAME_READY__=true;
 requestAnimationFrame(loop);
 </script>
 </body></html>
