@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no"/>
-<title>DINO // LASER TRIP — BUILD 007</title>
+<title>DINO // LASER TRIP — BUILD 008</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 :root{--hot:#ff3c9e;--acid:#b6ff58;--cyan:#6df8ff;--white:#f6f2e7;--ink:#10141b}
@@ -25,7 +25,7 @@ body.trip #announcer{text-shadow:0 0 22px #fcf3}body.trip canvas{animation:reali
 <body>
 <div id="photoWorld"><img id="photoDino" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus-rex-Profile-steveoc86.png" alt=""><div id="photoCannon"></div><div class="credit">Dinosaur: Steveoc86 / Wikimedia Commons, CC BY-SA</div></div><canvas id="game" aria-label="Dino Laser Trip video game"></canvas><div id="grain"></div><div id="scanline"></div><div id="flash"></div>
 <div id="photoLaser"><div class="ray"></div></div><div id="hud">
- <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>CURSED CINEMATIC · BUILD 007</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
+ <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>CURSED CINEMATIC · BUILD 008</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
  <div id="announcer"></div><div class="trip-hud"><b>🍄 REALITY IS OPTIONAL // 3-LANE MODE</b><div class="timer"><span id="triptime">15.0</span><span style="font-size:12px;color:#adc2d2"> SEC</span></div><div class="meter"><div id="tripbar"></div></div></div>
  <div class="bottom"><div class="instructions" id="instructions"><b>SPACE/↑</b> JUMP &nbsp; <b>↓</b> DUCK &nbsp; <b>CLICK/F</b> FIRE &nbsp; <b>P</b> PAUSE &nbsp; <b>M</b> TEST MUSHROOM</div><div class="hudbuttons"><button class="mutebtn" id="pause" aria-label="Pause game">Ⅱ PAUSE</button><button class="mutebtn" id="mute">♪ SOUND ON</button></div></div>
 </div>
@@ -141,7 +141,7 @@ function drawDino(x,z,yaw=0){let h=dino.y,duck=dino.duck&&h<.1,scaleY=duck?.69:1
 }
 function drawCactus(x,z=0,size=1){let b=M.trs(x,0,z,size,size,size);part('box','#268b71',b,0,.8,0,.29,.9,.32);part('box','#268b71',b,-.38,1.03,0,.33,.17,.29);part('box','#268b71',b,-.61,1.32,0,.16,.40,.2);part('box','#268b71',b,.4,.77,0,.35,.15,.26);part('box','#268b71',b,.6,1.0,0,.18,.33,.2);part('cone','#b6f68a',b,0,1.7,0,.19,.23,.19)}
 function drawHazard(o){if(o.type==='cactus')drawCactus(o.x,o.z,o.size);else{for(let j=0;j<3;j++)draw('cone',pal.pink,M.trs(o.x+(j-1)*.44,.5,0,.24,.52,.24),.35)}}
-function drawMushroom(x,y,z,t=worldTime){let b=M.trs(x,y,z,1,1,1,0,0,Math.sin(t*2)*.07);part('cyl','#fff6d4',b,0,-.43,0,.23,.54,.23);part('sphere','#f45bff',b,0,.24,0,.84,.50,.84,0,0,0,.48);part('sphere','#44e2ff',b,-.35,.48,-.33,.2,.07,.17,0,0,0,.75);part('sphere','#bfff5a',b,.39,.41,-.18,.15,.07,.16,0,0,0,.8);part('sphere','#fff7ca',b,0,.65,.15,.19,.08,.23,0,0,0,.8);part('sphere','#ff97eb',b,.1,.39,.52,.11,.08,.14,0,0,0,.9);part('sphere',pal.cyan,b,0,0,0,1.2,.78,1.2,0,0,0,.18)}
+function drawMushroom(x,y,z,t=worldTime){let b=M.trs(x,y,z,1,1,1,0,0,Math.sin(t*2)*.045);part('cyl','#d6c7a5',b,0,-.42,0,.25,.52,.25);part('sphere','#8f765c',b,0,-.65,0,.27,.09,.26);part('sphere','#a5221b',b,0,.21,0,.87,.48,.85,0,0,0,.06,.32);part('sphere','#d04b35',b,0,.42,0,.67,.22,.67);for(let i=0;i<18;i++){let a=i*2.39996,rad=.24+(i%4)*.135;part('sphere',i%3?'#f5e7ce':'#ded4bb',b,Math.cos(a)*rad,.44-Math.pow(rad,2)*.46,Math.sin(a)*rad,.075+(i%3)*.02,.027,.072)}part('cyl','#ede0c4',b,0,-.10,0,.51,.065,.51);part('sphere','#4d392a',b,0,-.87,0,.32,.08,.32)}
 function drawFlyer(o){let b=M.trs(o.x,o.y+Math.sin(o.wob)*.25,o.z,1,1,1,o.rot*.23,Math.sin(o.rot)*.1,Math.sin(o.rot)*.18),c=o.entry.color;switch(o.entry.kind){
  case 'toaster':part('box',c,b,0,0,0,.67,.51,.4,0,0,0,.05,.8);part('box',pal.black,b,0,.49,0,.48,.04,.22);part('box',pal.acid,b,0,.63,0,.34,.25,.15);part('sphere',pal.pink,b,.48,.06,-.40,.10,.10,.08,0,0,0,1);break;
  case 'duck':part('sphere',c,b,0,0,0,.74,.49,.56);part('sphere',c,b,-.35,.50,-.24,.44,.43,.41);part('cone',pal.orange,b,-.35,.47,-.77,.22,.29,.25,0,-Math.PI/2);part('sphere',pal.black,b,-.49,.62,-.55,.08,.09,.07);part('sphere',pal.bone,b,.12,.13,-.55,.34,.18,.16);break;
@@ -189,7 +189,7 @@ for(let b of document.querySelectorAll('.ctrl')){let act=b.dataset.act;b.addEven
 window.addEventListener('contextmenu',e=>e.preventDefault());
 // Diagnostics for automated browser smoke tests and future build scripts.
 window.DinoLaserDev={getState:()=>({state,mode,score,health,tripRemaining,obstacles:hazards.length+flyers.length+tripObstacles.length,mushrooms:pickups.length}),start:reset,trip:enterTrip,jump,fire,render};
-window.__GAME_BUILD__='007';window.__GAME_READY__=true;
+window.__GAME_BUILD__='008';window.__GAME_READY__=true;
 requestAnimationFrame(loop);
 </script>
 </body></html>
