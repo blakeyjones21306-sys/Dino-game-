@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no"/>
-<title>DINO // LASER TRIP — BUILD 012</title>
+<title>DINO // LASER TRIP — BUILD 013</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 :root{--hot:#ff3c9e;--acid:#b6ff58;--cyan:#6df8ff;--white:#f6f2e7;--ink:#10141b}
@@ -25,7 +25,7 @@ body.trip #announcer{text-shadow:0 0 22px #fcf3}body.trip canvas{animation:reali
 <body>
 <div id="photoWorld"><div class="forestFallback"></div><img id="photoDino" src="https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus-rex-Profile-steveoc86.png" alt=""><div id="photoCannon"></div><div class="credit">Dinosaur: Steveoc86 / Wikimedia Commons, CC BY-SA</div></div><canvas id="game" aria-label="Dino Laser Trip video game"></canvas><div id="grain"></div><div id="scanline"></div><div id="flash"></div>
 <div id="photoLaser"><div class="ray"></div></div><div id="hud">
- <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>TEMPLE RUN COURSE · BUILD 012</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
+ <div class="top"><div class="identity"><strong>DINO//LASER<br>TRIP</strong><span>CHASE CAMERA · BUILD 013</span></div><div class="stats"><div class="stat"><small>SCORE</small><strong id="score">00000</strong></div><div class="stat high"><small>HIGH SCORE</small><strong id="high">00000</strong></div><div class="stat"><small>HEALTH</small><strong id="health">♥ ♥ ♥</strong></div></div></div>
  <div id="announcer"></div><div class="trip-hud"><b>🍄 REALITY IS OPTIONAL // 3-LANE MODE</b><div class="timer"><span id="triptime">15.0</span><span style="font-size:12px;color:#adc2d2"> SEC</span></div><div class="meter"><div id="tripbar"></div></div></div>
  <div class="bottom"><div class="instructions" id="instructions"><b>SPACE/↑</b> JUMP &nbsp; <b>↓</b> DUCK &nbsp; <b>CLICK/F</b> FIRE &nbsp; <b>P</b> PAUSE &nbsp; <b>M</b> TEST MUSHROOM</div><div class="hudbuttons"><button class="mutebtn" id="pause" aria-label="Pause game">Ⅱ PAUSE</button><button class="mutebtn" id="mute">♪ SOUND ON</button></div></div>
 </div>
@@ -181,7 +181,7 @@ function drawTripObstacle(o){let b=M.trs(o.x,0,o.z,1,1,1,0,0,0);switch(o.kind){
 function drawBeam(){if(!beam)return;let a=beam.from,b=beam.to,m=[(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2],v=sub(b,a),len=Math.hypot(...v),up=[0,1,0],dir=norm(v),axis=cross(up,dir),angle=Math.acos(clamp(dot(up,dir),-1,1));let rotation=M.id();let k=Math.hypot(...axis);if(k>.001){let [x,y,z]=axis.map(q=>q/k),c=Math.cos(angle),s=Math.sin(angle),t=1-c;rotation=new Float32Array([t*x*x+c,t*x*y+z*s,t*x*z-y*s,0,t*x*y-z*s,t*y*y+c,t*y*z+x*s,0,t*x*z+y*s,t*y*z-x*s,t*z*z+c,0,0,0,0,1])}let base=M.mul(M.t(...m),rotation);part('cyl','#ff001a',base,0,0,0,.33,len/2,.33,0,0,0,1.8);part('cyl','#ff1028',base,0,0,0,.20,len/2,.20,0,0,0,2);part('cyl',pal.white,base,0,0,0,.085,len/2,.085,0,0,0,2.5);ball('#ff001a',...b,.62,.62,.62,2);ball(pal.white,...b,.22,.22,.22,2.5)}
 function drawParticles(){for(let p of particles){let life=clamp(p.life/.6,.15,1);draw('box',p.col,M.trs(p.x,p.y,p.z,p.size*life,p.size*life,p.size*life),.3)}}
 function render(){let w=canvas.clientWidth,h=canvas.clientHeight;if(canvas.width!==Math.round(w*Math.min(devicePixelRatio,2)*.87)||canvas.height!==Math.round(h*Math.min(devicePixelRatio,2)*.87)){canvas.width=Math.max(1,Math.round(w*Math.min(devicePixelRatio,2)*.87));canvas.height=Math.max(1,Math.round(h*Math.min(devicePixelRatio,2)*.87));gl.viewport(0,0,canvas.width,canvas.height)}let asp=canvas.width/canvas.height;
- let focus;if(mode==='side'){fogRGB=hex('#e9b9a8');sunDir=norm([-.4,.9,1]);let cameraShake=shake*rnd(-.4,.4);eye=[asp<.7?-3.2:0,6.4+cameraShake,asp<.7?26:Math.max(24,34-asp*5)];focus=[asp<.7?-2.8:0,2.6,0];gl.clearColor(.82,.61,.67,1)}else{fogRGB=hex('#a7b49c');sunDir=norm([-.6,.8,.45]);let cameraShake=shake*rnd(-.3,.3);eye=[tripLanePos*.22,7.8+cameraShake,20];focus=[tripLanePos*.15,.1,-29];gl.clearColor(0,0,0,0)}
+ let focus;if(mode==='side'){fogRGB=hex('#e9b9a8');sunDir=norm([-.4,.9,1]);let cameraShake=shake*rnd(-.4,.4);eye=[asp<.7?-3.2:0,6.4+cameraShake,asp<.7?26:Math.max(24,34-asp*5)];focus=[asp<.7?-2.8:0,2.6,0];gl.clearColor(.82,.61,.67,1)}else{fogRGB=hex('#a7b49c');sunDir=norm([-.6,.8,.45]);let cameraShake=shake*rnd(-.3,.3);eye=[tripLanePos*.35,5.7+cameraShake,14.5];focus=[tripLanePos*.12,1.0,-32];gl.clearColor(0,0,0,0)}
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(prog);view=M.lookAt(eye,focus);vp=M.mul(M.persp((asp<.8?61:52)*Math.PI/180,asp,.12,250),view);gl.uniformMatrix4fv(U.vp,false,vp);gl.uniformMatrix4fv(U.view,false,view);gl.uniform3fv(U.fog,fogRGB);gl.uniform3fv(U.light,sunDir);gl.uniform1f(U.near,mode==='side'?22:70);gl.uniform1f(U.far,mode==='side'?115:180);lastMesh=null;
  if(mode==='side'){drawGroundSide();for(let o of hazards)drawHazard(o);for(let f of flyers)drawFlyer(f);for(let p of pickups)drawMushroom(p.x,1.25,p.z,p.rot);drawDino(dino.x,0,-Math.PI/2)}else{drawTripWorld();for(let o of tripObstacles)drawTripObstacle(o);drawDino(tripLanePos,dino.z,0);let photo=$('photoDino'),cannon=$('photoCannon');photo.style.left=(50+tripLanePos*7)+'%';cannon.style.left=(50+tripLanePos*7)+'%';photo.style.transform='translateX(-50%) translateY('+(-dino.y*18)+'px)';cannon.style.transform='translateX(-50%) translateY('+(-dino.y*18)+'px) rotate(-10deg)'}drawParticles();drawBeam();$('photoLaser').classList.toggle('firing',mode==='trip'&&!!beam);
 }
@@ -192,7 +192,7 @@ for(let b of document.querySelectorAll('.ctrl')){let act=b.dataset.act;b.addEven
 window.addEventListener('contextmenu',e=>e.preventDefault());
 // Diagnostics for automated browser smoke tests and future build scripts.
 window.DinoLaserDev={getState:()=>({state,mode,score,health,tripRemaining,obstacles:hazards.length+flyers.length+tripObstacles.length,mushrooms:pickups.length}),start:reset,trip:enterTrip,jump,fire,render};
-window.__GAME_BUILD__='012';window.__GAME_READY__=true;
+window.__GAME_BUILD__='013';window.__GAME_READY__=true;
 requestAnimationFrame(loop);
 </script>
 </body></html>
